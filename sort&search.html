@@ -1,0 +1,53 @@
+<htlml lang="en">
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+<script>
+a=[133,34,6,67,90]
+let n = parseInt(window.prompt("Enter the number to search"));
+function bin_search(a,n){
+   let left=0;
+   let mid;
+   let right=a.length;
+   while(left<right){
+     mid = parseInt((left+right)/2);
+     if(n<a[mid]){
+	right=mid;
+     }
+     else if(n>a[mid]){
+	left = mid;
+     }
+     else{
+        return mid;
+     }
+	console.log(mid);
+}
+	
+return -1;
+}
+
+function sort(a){
+ for(let i=0;i<n;i++){
+  for(let j=i+1;j<n;j++){
+   if(a[j]<a[i]){
+	let temp=a[j];
+	a[j]=a[i];
+	a[i]=temp;
+	}
+     }
+    }
+  }
+sort(a);
+//console.log(a);
+let pos = bin_search(a,n);
+if(pos != -1){
+	document.writeln("found at position "+pos +" in the array");
+}
+else{
+	document.writeln("not found");
+ }
+
+</script>
+</body>
+</html>
