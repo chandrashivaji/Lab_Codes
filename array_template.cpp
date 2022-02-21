@@ -19,7 +19,7 @@ class Array{
 		return *(arr+i);
 	}
 	void add(int a){
-		*arr[++len]=a;
+		arr[++len]=a;
 	}
 	void display(){
 		for(int i=0;i<=len;i++){
