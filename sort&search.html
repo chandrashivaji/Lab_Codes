@@ -4,8 +4,12 @@
 </head>
 <body>
 <script>
-a=[133,34,6,67,90]
-let n = parseInt(window.prompt("Enter the number to search"));
+let l = parseInt(window.prompt("Enter the no. of elements in array"));
+let a=[];
+for(let i=0;i<l;i++){
+ a[i]= parseInt(window.prompt("Enter the number to insert"));
+}
+let option = parseInt(window.prompt("chose your operation 1.sort 2.binary_search"));
 function bin_search(a,n){
    let left=0;
    let mid;
@@ -28,8 +32,8 @@ return -1;
 }
 
 function sort(a){
- for(let i=0;i<n;i++){
-  for(let j=i+1;j<n;j++){
+ for(let i=0;i<l;i++){
+  for(let j=i+1;j<l;j++){
    if(a[j]<a[i]){
 	let temp=a[j];
 	a[j]=a[i];
@@ -38,16 +42,31 @@ function sort(a){
      }
     }
   }
-sort(a);
-//console.log(a);
-let pos = bin_search(a,n);
-if(pos != -1){
-	document.writeln("found at position "+pos +" in the array");
+for(i=0;i<a.length;i++){
+ document.writeln(a[i]);
+}
+if(option == 1){
+ sort(a);
+ document.writeln("<br>After sorting:<br>");
+ for(i=0;i<a.length;i++){
+ document.writeln(a[i]);
+ }
 }
 else{
-	document.writeln("not found");
+sort(a);
+ document.writeln("<br>After sorting:<br>");
+ for(i=0;i<a.length;i++){
+ document.writeln(a[i]);
  }
-
+let n = parseInt(window.prompt("Enter the number to search"));
+let pos = bin_search(a,n);
+if(pos != -1){
+	document.writeln("<br>"+n+" found at position "+pos +" in the sorted array");
+}
+else{
+	document.writeln("<br>"+n+" was not found");
+ }
+}
 </script>
 </body>
 </html>
