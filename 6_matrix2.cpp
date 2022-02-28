@@ -85,7 +85,9 @@ int main()
         	m2.add(i+j+1,i,j);
         }
 	}
- 	m.mul_mat(m2);
-	//m3.display();
+ 	cout<<"matrix m:\n";
+    	m.display();
+   	cout<<"matrix m2:\n";
+    	m2.display();
 	return 0;
 }}
