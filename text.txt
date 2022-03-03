@@ -1,0 +1,15 @@
+import numpy as np
+import math
+X = np.array([[3,6,5],[7,3,3],[10,9,8],[3,9,7],[10,6,5]])
+print(X)
+print(np.mean(X,axis=0))
+print((np.std(X,axis=0)*math.sqrt(len(X)/len(X)-1)))
+X = (X-np.mean(X,axis=0))/(np.std(X,axis=0)*math.sqrt(len(X)-1))
+print("dependent matrix is:\n{}".format(X))
+A = X
+varcov = np.dot(np.transpose(A),A)/len(X)
+print(varcov)
+e1=np.linalg.eig(VarCov)
+print('The Eigen values are :\n{}'.format(e1[0]))
+print('The Eigen vectors are :\n')
+print(e1[1])
