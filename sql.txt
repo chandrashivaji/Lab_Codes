@@ -1,0 +1,60 @@
+1)	Write a PL/SQL stored function to calculate ncr using fact (m) function that returns factorial of m
+Function:
+create or replace function fact(n number)return number as
+ f number := 1;
+ num number := n;
+begin
+ for i in 1..num loop
+  f := f*i;
+ end loop;
+return f;
+end;
+main_fun:
+declare
+ n number := &n;
+ r number := &r;
+ ans number(10);
+begin
+ ans := fact(n)/(fact(n-r)*fact(r));
+ dbms_output.put_line(ans);
+end;
+output:
+Enter value for n: 4
+old   2:  n number := &n;
+new   2:  n number := 4;
+Enter value for r: 2
+old   3:  r number := &r;
+new   3:  r number := 2;
+6
+2) Write a PL/SQL block that updates salary of an employee in employee table by using incr function which takes employee number as argument, calculates increment and returns increment based on the following criteria.
+If salary <= 3000 – increment = 30% of salary
+If salary > 3000 and <= 6000– increment = 20% of salary
+Else increment = 10% of salary. 
+Function:
+create or replace function incr1(eid number)return number as
+ inc number;
+ s number;
+begin
+ select sal into s from EMPLOYEE where EMPNO=eid;
+ if s>0 and s<=3000 then
+  inc := s*30/100;
+ elsif s>3000 and s<=6000 then
+  inc := s*20/100;
+ else
+  inc := s*10/100;
+ end if;
+return inc;
+end;
+main_fun:
+declare
+ eid number := &eid;
+ inc1 number;
+begin
+ inc1 := incr1(eid);
+ dbms_output.put_line('Incremented salary is '||inc1);
+end;
+output:
+Enter value for eid: 7788
+old   2:  eid number := &eid;
+new   2:  eid number := 7788;
+Incremented salary is 900
