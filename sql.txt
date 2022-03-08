@@ -58,3 +58,31 @@ Enter value for eid: 7788
 old   2:  eid number := &eid;
 new   2:  eid number := 7788;
 Incremented salary is 900
+3)3.	Write a stored procedure, raise_salary which accepts an employee number. It uses incr function of previous program to get the salary increase amount and uses employee number to select the current salary from employee table. If employee number is not found or if the current salary is null, it should raise an exception. Otherwise, updates the salary.
+declare
+ eid number := &eid;
+ up_sal number;
+ null_val EXCEPTION;
+begin
+ up_sal := incr1(eid);
+ if up_sal = 0 then 
+  RAISE null_val;
+ end if;
+ update emp set sal = (sal+up_sal) where empno = eid;
+exception
+ when no_data_found then
+  dbms_output.put_line('data not found with that eid');
+ when null_val then
+  dbms_output.put_line('null value found');
+end;
+output:
+Enter value for eid: 345
+old   2:  eid number := &eid;
+new   2:  eid number := 345;
+data not found with that eid
+
+Enter value for eid: 7782
+old   2:  eid number := &eid;
+new   2:  eid number := 7782;
+null value found
+4)
