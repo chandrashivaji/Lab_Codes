@@ -992,4 +992,880 @@ Paranthesis operator overloading
 Real value is 5
 Imaginary value is 12
 Magnitude part is 13
-10)
+10) Define class vector of integers with all possible operations like constructor, destructor, copy constructor and assignment operators>, =, <=, ==, ++ (pre and post), +, +=, ().
+#include<iostream>
+using namespace std;
+class Vector
+{
+  public:
+    int len;
+    int *arr;
+    Vector(){
+    	arr=new int;
+    	len=0;
+    }
+    void push(int a){
+        *(arr+(len++))=a;
+    }
+    void size(){
+    	cout<<"size of vector is "<<len<<endl;
+    }
+    void isEmpty(){
+    	(len==0)?cout<<"Vector is empty\n":cout<<"Vector is not empty\n";
+    }
+    void display(){
+    	if(arr == NULL){
+	    	cout<<"Empty vector\n";
+	    	return;
+	    }
+    	for(int i=0;i<len;i++){
+	    	cout<<arr[i]<<endl;
+	    }
+    }
+    int operator()(int i){
+    	return arr[i];
+    }
+    void operator+(Vector v){
+    	if(len != v.len){
+	    	cout<<"Only vectors of same size can be added!";
+	    	return;
+	    }
+	    for(int i=0;i<len;i++){
+    		cout<<arr[i]+v(i)<<endl;
+    	}
+    }
+    int operator==(Vector v){
+    	if(len != v.len){
+	    	cout<<"Only vectors of same size can be compared!";
+	    	return -1;
+	    }
+	    for(int i=0;i<len;i++){
+    		if(arr[i] != v(i)){
+		    	return 0;
+		    }
+    	}
+    	return 1;
+    }
+    void operator++(int){
+	    for(int i=0;i<len;i++){
+    		cout<<arr[i]+1<<endl;
+    	}
+    }
+    void operator++(){
+	    for(int i=0;i<len;i++){
+    		cout<<arr[i]+1<<endl;
+    	}
+    }
+    void operator+=(int a){
+	    for(int i=0;i<len;i++){
+    		cout<<arr[i]+a<<endl;
+    	}
+    }
+    int operator<(Vector v){
+    	if(len != v.len){
+	    	cout<<"Only vectors of same size can be compared!";
+	    	return -1;
+	    }
+	    for(int i=0;i<len;i++){
+    		if(arr[i]>=v(i)){
+		    	return 0;
+		    }
+    	}
+    	return 1;
+	}
+	int operator>(Vector v){
+    	if(len != v.len){
+	    	cout<<"Only vectors of same size can be compared!";
+	    	return -1;
+	    }
+	    for(int i=0;i<len;i++){
+    		if(arr[i]<= v(i)){
+		    	return 0;
+		    }
+    	}
+    	return 1;
+	}
+	int operator>=(Vector v){
+    	if(len != v.len){
+	    	cout<<"Only vectors of same size can be compared!";
+	    	return -1;
+	    }
+	    for(int i=0;i<len;i++){
+    		if(arr[i]< v(i)){
+		    	return 0;
+		    }
+    	}
+    	return 1;
+	}
+	int operator<=(Vector v){
+    	if(len != v.len){
+	    	cout<<"Only vectors of same size can be compared!";
+	    	return -1;
+	    }
+	    for(int i=0;i<len;i++){
+    		if(arr[i]> v(i)){
+		    	return 0;
+		    }
+    	}
+    	return 1;
+	}
+    ~Vector(){
+    	cout<<"Object destroyed\n";
+    }
+};
+int main(){
+	Vector v1;
+	v1.push(1);
+	v1.push(2);
+	v1.push(3);
+    cout<<"v1 vector elements are:\n";
+    v1.display();
+	Vector v2=v1;
+    cout<<"v2 vector elements after copying from v1:\n";
+    v2.display();
+    cout<<"addition of v1 and v2:\n";
+    v1+v2;
+    cout<<"after preincrementing v1 its values are:\n";
+    v1++;
+	return 0;
+}
+output:
+v1 vector elements are:
+1
+2
+3
+v2 vector elements after copying from v1:
+1
+2
+3
+addition of v1 and v2:
+2
+4
+6
+Object destroyed
+after preincrementing v1 its values are:
+2
+3
+4
+Object destroyed
+Object destroyed
+11)Define class matrix of integers with all possible operations like constructor, destructor, copy constructor and assignment operators>, <,<=, <=, ==, ++ (pre and post), +, +=, ().
+
+#include<iostream>
+using namespace std;
+class matrix
+{
+int rows,col,i,j;
+int **m;
+public:
+matrix()//Default Constructor
+{
+}
+matrix(int r,int c)// Parameterized constructor
+{
+rows = r;
+col=c;
+m=new int*[rows];
+for(i=0;i<rows;i++)
+{
+m[i]= new int [col];
+}
+}
+matrix(const matrix&cpy)//Copy Constructor
+{
+rows=cpy.rows;
+col=cpy.col;
+m=cpy.m;
+}
+matrix operator =(const matrix&rhs)//Assignment operator
+{
+rows=rhs.rows;
+col=rhs.col;
+m=rhs.m;
+}
+matrix operator >(const matrix &rhs)
+{
+int c1=0,c2=0;
+for(i=0;i<rows;i++)
+{
+for(j=0;j<col;j++)
+{
+if(m[i][j]>rhs.m[i][j])
+{
+c1++;
+}
+else if(m[i][j]<rhs.m[i][j])
+c2++;
+}
+}
+if(c1>c2)
+cout<<"First matrix is larger"<<endl;
+else
+cout<<"Second matrix is larger"<<endl;
+}
+matrix operator >=(const matrix &rhs)
+{
+int c1=0,c2=0;
+for(i=0;i<rows;i++)
+{
+for(j=0;j<col;j++)
+{
+if(m[i][j]>rhs.m[i][j])
+{
+c1++;
+}
+else if(m[i][j]<rhs.m[i][j])
+{
+c2++;
+}
+}
+}
+if(c1>c2)
+cout<<"First matrix is larger"<<endl;
+else if(c1==c2)
+cout<<"Both matrices are equal"<<endl;
+else
+cout<<"Second matrix is larger"<<endl;
+}
+matrix operator <(const matrix &rhs)
+{
+int c1=0,c2=0;
+for(i=0;i<rows;i++)
+{
+for(j=0;j<col;j++)
+{
+if(m[i][j]<rhs.m[i][j])
+{
+c1++;
+}
+else if(m[i][j]>rhs.m[i][j])
+c2++;
+}
+}
+if(c1>c2)
+cout<<"First matrix is smaller"<<endl;
+else
+cout<<"Second matrix is smaller"<<endl;
+}
+matrix operator <=(const matrix &rhs)
+{
+int c1=0,c2=0;
+for(i=0;i<rows;i++)
+{
+for(j=0;j<col;j++)
+{
+if(m[i][j]<rhs.m[i][j])
+{
+c1++;
+}
+else if(m[i][j]>rhs.m[i][j])
+c2++;
+}
+}
+if(c1>c2)
+cout<<"First matrix is smaller"<<endl;
+else if(c1=c2)
+cout<<"Both matrices are equal"<<endl;
+else
+cout<<"Second matrix is smaller"<<endl;
+}
+matrix operator ==(const matrix &rhs)
+{
+int cnt=0;
+for(i=0;i<rows;i++)
+{
+for(j=0;j<col;j++)
+{
+if(m[i][j]==rhs.m[i][j])
+cnt++;
+}
+}
+if(cnt==rows*col)
+cout<<"Both matrices are equal"<<endl;
+else
+cout<<"Both matrices are not equal"<<endl;
+}
+matrix operator +=(const matrix &rhs)
+{
+for(i=0;i<rows;i++)
+{
+for(j=0;j<col;j++)
+{
+m[i][j]=m[i][j]+rhs.m[i][j];
+}
+}
+}
+matrix operator +(const matrix &rhs)
+{
+for(i=0;i<rows;i++)
+{
+for(j=0;j<col;j++)
+{
+m[i][j]=m[i][j]+rhs.m[i][j];
+}
+}
+}
+matrix operator ++()//Pre increment
+{
+for(i=0;i<rows;i++)
+{
+for(j=0;j<col;j++)
+{
+++m[i][j];
+}
+}
+}
+matrix operator ++(int)//Post increment
+{
+for(i=0;i<rows;i++)
+{
+for(j=0;j<col;j++)
+{
+m[i][j]++;
+}
+}
+}
+void enter()
+{
+for(i=0;i<rows;i++)
+{
+for(j=0;j<col;j++)
+{
+cin>>m[i][j];
+}
+}
+}
+void print()
+{
+for(i=0;i<rows;i++)
+{
+for(j=0;j<col;j++)
+{
+cout<<m[i][j]<<" ";
+}
+cout<<endl;
+}
+}
+~matrix()//Destructor called
+{
+}
+};
+int main()
+{
+matrix m1(2,2),m2(2,2);
+cout<<"Enter matrix 1 elements "<<endl;
+m1.enter();
+cout<<"Printing using assignment operator"<<endl;
+m2=m1;
+m2.print();
+matrix m3(m1);
+cout<<"Printing using copy constructor "<<endl;
+m3.print();
+cout<<"Enter matrix 2 elements "<<endl;
+matrix m4(2,2);
+m4.enter();
+m1>m4;
+m1<m4;
+m1<=m4;
+m1>=m4;
+m1==m4;
+m1+=m4;
+cout<<"Adding using shorthand operator"<<endl;
+m1.print();
+m1+m4;
+cout<<"Adding using binary operator"<<endl;
+m1.print();
+cout<<"Pre incrementing operators "<<endl;
+++m3;
+m3.print();
+cout<<"Post incrementing operators "<<endl;
+m3++;
+m3.print();
+}
+output:
+Enter matrix 1 elements 
+1
+23
+34
+21
+Printing using assignment operator
+1 23 
+34 21 
+Printing using copy constructor 
+1 23 
+34 21 
+Enter matrix 2 elements 
+56
+23
+14
+5 
+First matrix is larger
+Second matrix is smaller
+Both matrices are equal
+First matrix is larger
+Both matrices are not equal
+Adding using shorthand operator
+57 46 
+48 26 
+Adding using binary operator
+113 69 
+62 31 
+Pre incrementing operators 
+114 70 
+63 32 
+Post incrementing operators 
+115 71 
+64 33 
+12)Define class matrix of integers using vector, with all possible operations like constructor, destructor, copy constructor and assignment operators>, <,<=, <=, ==, ++ (pre and post),+,+=, ( ).
+#include<iostream>
+#include<vector>
+using namespace std;
+class matrix
+{
+int rows,col,i,j;
+vector<vector<int> > m;
+public:
+matrix()//Default constructor
+{
+}
+matrix(int r,int c)
+{
+rows=r;
+col=c;
+}
+matrix(const matrix&cpy)//Copy Constructor
+{
+cout<<"Displaying using copy constructor"<<endl;
+rows=cpy.rows;
+col=cpy.col;
+m=cpy.m;
+}
+matrix& operator =(const matrix &rhs)
+{
+cout<<"Displaying using assignment operator"<<endl;
+rows=rhs.rows;
+col=rhs.col;
+m=rhs.m;
+return *this;
+}
+matrix& operator >(const matrix &rhs)
+{
+int c1=0,c2=0;
+for(i=0;i<rows;i++)
+{
+for(j=0;j<col;j++)
+{
+if(m[i][j]>rhs.m[i][j])
+{
+c1++;
+}
+else if(m[i][j]<rhs.m[i][j])
+c2++;
+}
+}
+if(c1>c2)
+cout<<"First matrix is larger"<<endl;
+else
+cout<<"Second matrix is larger"<<endl;
+return *this;
+}
+matrix& operator >=(const matrix &rhs)
+{
+int c1=0,c2=0;
+for(i=0;i<rows;i++)
+{
+for(j=0;j<col;j++)
+{
+if(m[i][j]>rhs.m[i][j])
+{
+c1++;
+}
+else if(m[i][j]<rhs.m[i][j])
+{
+c2++;
+}
+}
+}
+if(c1>c2)
+cout<<"First matrix is larger"<<endl;
+else if(c1==c2)
+cout<<"Both matrices are equal"<<endl;
+else
+cout<<"Second matrix is larger"<<endl;
+return *this;
+}
+matrix& operator <(const matrix &rhs)
+{
+int c1=0,c2=0;
+for(i=0;i<rows;i++)
+{
+for(j=0;j<col;j++)
+{
+if(m[i][j]<rhs.m[i][j])
+{
+c1++;
+}
+else if(m[i][j]>rhs.m[i][j])
+c2++;
+}
+}
+if(c1>c2)
+cout<<"First matrix is smaller"<<endl;
+else
+cout<<"Second matrix is smaller"<<endl;
+return *this;
+}
+matrix& operator <=(const matrix &rhs)
+{
+int c1=0,c2=0;
+for(i=0;i<rows;i++)
+{
+for(j=0;j<col;j++)
+{
+if(m[i][j]<rhs.m[i][j])
+{
+c1++;
+}
+else if(m[i][j]>rhs.m[i][j])
+c2++;
+}
+}
+if(c1>c2)
+cout<<"First matrix is smaller"<<endl;
+else if(c1=c2)
+cout<<"Both matrices are equal"<<endl;
+else
+cout<<"Second matrix is smaller"<<endl;
+return *this;
+}
+matrix& operator ==(const matrix &rhs)
+{
+int cnt=0;
+for(i=0;i<rows;i++)
+{
+for(j=0;j<col;j++)
+{
+if(m[i][j]==rhs.m[i][j])
+cnt++;
+}
+}
+if(cnt==rows*col)
+cout<<"Both matrices are equal"<<endl;
+else
+cout<<"Both matrices are not equal"<<endl;
+return *this;
+}
+matrix& operator +=(const matrix &rhs)
+{
+for(i=0;i<rows;i++)
+{
+for(j=0;j<col;j++)
+{
+m[i][j]=m[i][j]+rhs.m[i][j];
+}
+}
+return *this;
+}
+matrix& operator +(const matrix &rhs)
+{
+for(i=0;i<rows;i++)
+{
+for(j=0;j<col;j++)
+{
+m[i][j]=m[i][j]+rhs.m[i][j];
+}
+}
+return *this;
+}
+matrix& operator ++()//Pre increment
+{
+for(i=0;i<rows;i++)
+{
+for(j=0;j<col;j++)
+{
+++m[i][j];
+}
+}
+return *this;
+}
+matrix& operator ++(int)//Post increment
+{
+for(i=0;i<rows;i++)
+{
+for(j=0;j<col;j++)
+{
+m[i][j]++;
+}
+}
+return *this;
+}
+void enter()
+{
+cout<<"Enter elements "<<endl;
+for(i=0;i<rows;i++)
+{
+int t;
+vector<int> m1;
+for(j=0;j<col;j++)
+{
+cin>>t;
+m1.push_back(t);
+}
+m.push_back(m1);
+}
+}
+void print()
+{
+for(i=0;i<rows;i++)
+{
+for(j=0;j<col;j++)
+{
+cout<<m[i][j]<<" ";
+}
+cout<<endl;
+}
+}
+~matrix()//Destructor
+{
+}
+};
+int main()
+{
+matrix m1(2,2);
+m1.enter();
+m1.print();
+matrix m2(m1);
+m2.print();
+matrix m3;
+m3=m1;
+m3.print();
+matrix m4(2,2);
+m4.enter();
+m4>m1;
+m1<m4;
+m1<=m4;
+m1>=m4;
+m1==m4;
+m1+=m4;
+cout<<"Adding using shorthand operator"<<endl;
+m1.print();
+m1+m4;
+cout<<"Adding using binary operator"<<endl;
+m1.print();
+cout<<"Pre incrementing operators "<<endl;
+++m3;
+m3.print();
+cout<<"Post incrementing operators "<<endl;
+m3++;
+m3.print();
+}
+output:
+Enter elements 
+23
+34
+12
+56
+23 34 
+12 56 
+Displaying using copy constructor
+23 34 
+12 56 
+Displaying using assignment operator
+23 34 
+12 56 
+Enter elements 
+23
+12
+56
+34
+Second matrix is larger
+Second matrix is smaller
+Both matrices are equal
+First matrix is larger
+Both matrices are not equal
+Adding using shorthand operator
+46 46 
+68 90 
+Adding using binary operator
+69 58 
+124 124 
+Pre incrementing operators 
+24 35 
+13 57 
+Post incrementing operators 
+25 36 
+14 58 
+13)Define stack and queue inherited from array class, with standard functions and operators.
+#include<iostream>
+using namespace std;
+#define size 20
+int top=-1,front=0,rear=0;
+class arrays
+{
+public:
+int a[size];
+void insert(int t)
+{
+a[++top]=t;
+}
+};
+class stacks:public arrays
+{
+public:
+void push(int ele)
+{
+if(top>=size)
+cout<<"Stack is full"<<endl;
+else
+a[++top]=ele;
+}
+void pop()
+{
+int t;
+if(top<=-1)
+cout<<"Stack is empty "<<endl;
+else
+{
+cout<<"Element popped is "<<a[top]<<endl;
+top--;
+}
+}
+void display()
+{
+cout<<"Stack elements are "<<endl;
+for(int i=top;i!=-1;i--)
+cout<<a[i]<<endl;
+}
+};
+class queues:public arrays
+{
+public:
+void enqueue(int t)
+{
+if(top>=size)
+cout<<"Queue is full"<<endl;
+else
+a[rear++]=t;
+}
+void dequeue()
+{
+int t;
+if(top==front)
+cout<<"Queue is empty "<<endl;
+else
+{
+cout<<"Element dequeue is "<<a[front]<<endl;
+front++;
+}
+}
+void displayq()
+{
+cout<<"Elements in queue are "<<endl;
+for(int i=front;i<rear;i++)
+cout<<a[i]<<endl;
+}
+};
+int main()
+{
+arrays a;
+stacks s;
+s.push(160);
+s.push(28);
+s.push(70);
+s.pop();
+s.display();
+queues q;
+q.enqueue(57);
+q.enqueue(80);
+q.enqueue(78);
+q.displayq();
+q.dequeue();
+q.displayq();
+}
+output:
+Element popped is 70
+Stack elements are 
+28
+160
+Elements in queue are 
+57
+80
+78
+Element dequeue is 57
+Elements in queue are 
+80
+78
+14)Define a class called ‘array’ with data type passed as template type with constructor, destructor, copy constructor and assignment operators and index operator.
+#include<iostream>
+using namespace std;
+template<typename T> //General declaration of class or function template
+class arrays
+{
+T *a;
+int n;
+public:
+arrays()
+{
+}
+arrays(int size)//Constructor
+{
+n=size;
+a=new T[n];
+}
+arrays(const arrays&cpy)
+{
+cout<<"Copy constructor"<<endl;
+n=cpy.n;
+a=cpy.a;
+}
+arrays& operator =(const arrays&rhs)
+{
+cout<<"Assignment operator"<<endl;
+n=rhs.n;
+a=rhs.a;
+}
+void enter()
+{
+cout<<"Enter elements "<<endl;
+for(int i=0;i<n;i++)
+cin>>a[i];
+}
+void print()
+{
+for(int i=0;i<n;i++)
+cout<<a[i]<<endl;
+}
+~arrays()//Destructor
+{
+}
+};
+int main()
+{
+//arrays <int>a1; ---General declaration of class template in main
+arrays <int>a1(5);
+a1.enter();
+arrays <int>a2(a1);
+a2.print();
+arrays <int>a3;
+a3=a1;
+a3.print();
+}
+output:
+Enter elements 
+23
+89
+45
+19
+456
+Copy constructor
+23
+89
+45
+19
+456
+Assignment operator
+23
+89
+45
+19
+456
