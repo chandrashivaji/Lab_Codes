@@ -85,4 +85,45 @@ Enter value for eid: 7782
 old   2:  eid number := &eid;
 new   2:  eid number := 7782;
 null value found
-4)
+4)4.	Consider the following table
+
+ITEM
+prod_ id
+	name
+	mat_used
+	weight
+Write a procedure which will check for the existence of prod_id from the table ITEM. This procedure must have two arguments, one of which will receive a value, which is a matching pattern for prod_id of the ITEM table, and another which will return a value indicating whether a match has been found or not.
+procedure:
+create or replace procedure check_val (pid in number,found out number)
+as
+id number;
+begin
+ select prod_id into id from item where prod_id = pid;
+ if id is not NULL then
+  found := 1;
+ end if;
+exception
+ when no_data_found then
+  dbms_output.put_line('item not available');
+end;
+
+main:
+declare
+ pid number := &pid;
+ found number;
+begin
+ check_val(pid,found);
+ if found = 1 then
+  dbms_output.put_line('item exists!');
+ end if;
+end;
+
+output:
+Enter value for pid: 104
+old   2:  pid number := &pid;
+new   2:  pid number := 104;
+item exists!
+Enter value for pid: 234
+old   2:  pid number := &pid;
+new   2:  pid number := 234;
+item not available
