@@ -72,3 +72,33 @@ reg($str);
 output:
 enter a string: hello!*revanth!how*are!!you
 hello  revanth how are  you
+1)area of the rectangle
+read -p "enter the length :" length;
+read -p "enter the breadth " breadth;
+area(){
+res=$[ $length * $breadth ];
+echo "area of the rectangle is $res";
+}
+area length breadth
+output:
+
+2)
+read -p "Enter your luck number: " num;
+check(){
+score=$[ $num / 100 ];
+case $score in
+[0-200])
+echo "first prize"
+;;
+[201-500])
+echo "second prize"
+;;
+[501-1000])
+echo "third prize"
+;;
+esac
+}
+check num
+output:
+Enter your luck number: 345
+second prize
