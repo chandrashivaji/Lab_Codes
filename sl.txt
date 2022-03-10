@@ -1,0 +1,74 @@
+10)	Write a PHP program to sort elements in an array in descending order using functions.
+<?php
+$x=array();
+$n = (int)readline("Enter size of array: ");
+for($i=0;$i<$n;$i++){
+    $x[$i] = (int)readline("Enter an integer: ");
+}
+ 
+function familyName($x) {
+      for($i=0;$i<count($x);$i++){
+        for($j=$i+1;$j<count($x);$j++){
+            if($x[$j] > $x[$i]){
+                $temp = $x[$i];
+                $x[$i]=$x[$j];
+                $x[$j]=$temp;
+            }
+        }
+    }
+    echo "array elements in descending order: ";
+    foreach($x as $val){
+        echo $val." ";
+    }
+}
+familyName($x);
+
+ ?>
+ output:
+ Enter size of array: 5
+Enter an integer: 23
+Enter an integer: 12
+Enter an integer: 56
+Enter an integer: 34
+Enter an integer: 78
+array elements in descending order: 78 56 34 23 12
+
+11)11.	Write a PHP program to remove the duplicated values from an array using functions.
+<?php 
+$arr = array();
+$n = (int)readline("Enter the size of the array:");
+for($i=0;$i<$n;$i++)
+    $arr[$i] = (int)readline("Enter an integer: ");
+    
+function remove_dup($arr){
+$found = array();
+foreach($arr as $val){
+    $found[$val]=1;
+}
+echo "array after removing duplicates ";
+foreach($found as $val => $check){
+    echo $val." ";
+ }
+}
+remove_dup($arr);
+?>
+output:
+Enter the size of the array:5
+Enter an integer: 23
+Enter an integer: 34
+Enter an integer: 34
+Enter an integer: 23
+Enter an integer: 12
+array after removing duplicates 23 34 12
+
+12)12.	Write a PHP program to replace all the patterns like '[!*]' using Regular expression
+<?php
+$str = readline("enter a string: ");
+function reg($str){
+echo preg_replace("/[!*]/"," ",$str);
+}
+reg($str);
+?>
+output:
+enter a string: hello!*revanth!how*are!!you
+hello  revanth how are  you
