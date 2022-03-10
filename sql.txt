@@ -127,3 +127,34 @@ Enter value for pid: 234
 old   2:  pid number := &pid;
 new   2:  pid number := 234;
 item not available
+5)
+/
+create or replace trigger audit_trial
+	after update or delete on persinfo for each row
+declare
+	eno    number;
+	ename  varchar2(12);
+	eage   number;
+	op     varchar2(12);
+begin
+	if updating then op:='update';
+	elsif deleting then op:='delete';
+	end if;
+	eno    :=  :old.empno;
+	ename  :=  :old.name;
+	eage   :=  :old.age;
+	insert into auditpersinfo
+	values(eno,ename,eage,op,sysdate);
+end;
+output:
+delete from persinfo where age=35;
+1 row deleted
+select * from auditpersinfo;
+
+EMPNO ENAME                       AGE OP         ODATE
+----- -------------------- ---------- ---------- ---------
+ 1004 Anuradha                     46 update     08-MAR-22
+ 1004 Anuradha                     46 update     08-MAR-22
+ 1004 Anuradha                     46 update     08-MAR-22
+ 1001 Sasi                         35 delete     10-MAR-22
+ 
