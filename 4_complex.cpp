@@ -54,7 +54,18 @@ int main()
     Complex p1(&q1,&q2);
     Complex num2(&q3,&q4);
     
-    divide(p1,num2);
+    cout<<"First complex number\n";
+    p1.display();
+    cout<<"Second complex number\n";
+    p2.display();
+    cout<<"addition of complex numbers\n";
+    add(p1,p2);
+    cout<<"subtraction of complex numbers\n";
+    subt(p1,p2);
+    cout<<"multiplication of complex numbers\n";
+    mult(p1,p2);
+    cout<<"division of complex numbers\n";
+    divide(p1,p2);
     
     return 0;
 }

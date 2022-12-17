@@ -1,0 +1,104 @@
+10)	Write a PHP program to sort elements in an array in descending order using functions.
+<?php
+$x=array();
+$n = (int)readline("Enter size of array: ");
+for($i=0;$i<$n;$i++){
+    $x[$i] = (int)readline("Enter an integer: ");
+}
+ 
+function familyName($x) {
+      for($i=0;$i<count($x);$i++){
+        for($j=$i+1;$j<count($x);$j++){
+            if($x[$j] > $x[$i]){
+                $temp = $x[$i];
+                $x[$i]=$x[$j];
+                $x[$j]=$temp;
+            }
+        }
+    }
+    echo "array elements in descending order: ";
+    foreach($x as $val){
+        echo $val." ";
+    }
+}
+familyName($x);
+
+ ?>
+ output:
+ Enter size of array: 5
+Enter an integer: 23
+Enter an integer: 12
+Enter an integer: 56
+Enter an integer: 34
+Enter an integer: 78
+array elements in descending order: 78 56 34 23 12
+
+11)11.	Write a PHP program to remove the duplicated values from an array using functions.
+<?php 
+$arr = array();
+$n = (int)readline("Enter the size of the array:");
+for($i=0;$i<$n;$i++)
+    $arr[$i] = (int)readline("Enter an integer: ");
+    
+function remove_dup($arr){
+$found = array();
+foreach($arr as $val){
+    $found[$val]=1;
+}
+echo "array after removing duplicates ";
+foreach($found as $val => $check){
+    echo $val." ";
+ }
+}
+remove_dup($arr);
+?>
+output:
+Enter the size of the array:5
+Enter an integer: 23
+Enter an integer: 34
+Enter an integer: 34
+Enter an integer: 23
+Enter an integer: 12
+array after removing duplicates 23 34 12
+
+12)12.	Write a PHP program to replace all the patterns like '[!*]' using Regular expression
+<?php
+$str = readline("enter a string: ");
+function reg($str){
+echo preg_replace("/[!*]/"," ",$str);
+}
+reg($str);
+?>
+output:
+enter a string: hello!*revanth!how*are!!you
+hello  revanth how are  you
+1)area of the rectangle
+read -p "enter the length :" length;
+read -p "enter the breadth " breadth;
+area(){
+res=$[ $length * $breadth ];
+echo "area of the rectangle is $res";
+}
+area length breadth
+output:
+
+2)
+read -p "Enter your luck number: " num;
+check(){
+score=$[ $num / 100 ];
+case $score in
+[0-200])
+echo "first prize"
+;;
+[201-500])
+echo "second prize"
+;;
+[501-1000])
+echo "third prize"
+;;
+esac
+}
+check num
+output:
+Enter your luck number: 345
+second prize

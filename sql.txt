@@ -1,0 +1,160 @@
+1)	Write a PL/SQL stored function to calculate ncr using fact (m) function that returns factorial of m
+Function:
+create or replace function fact(n number)return number as
+ f number := 1;
+ num number := n;
+begin
+ for i in 1..num loop
+  f := f*i;
+ end loop;
+return f;
+end;
+main_fun:
+declare
+ n number := &n;
+ r number := &r;
+ ans number(10);
+begin
+ ans := fact(n)/(fact(n-r)*fact(r));
+ dbms_output.put_line(ans);
+end;
+output:
+Enter value for n: 4
+old   2:  n number := &n;
+new   2:  n number := 4;
+Enter value for r: 2
+old   3:  r number := &r;
+new   3:  r number := 2;
+6
+2) Write a PL/SQL block that updates salary of an employee in employee table by using incr function which takes employee number as argument, calculates increment and returns increment based on the following criteria.
+If salary <= 3000 – increment = 30% of salary
+If salary > 3000 and <= 6000– increment = 20% of salary
+Else increment = 10% of salary. 
+Function:
+create or replace function incr1(eid number)return number as
+ inc number;
+ s number;
+begin
+ select sal into s from EMPLOYEE where EMPNO=eid;
+ if s>0 and s<=3000 then
+  inc := s*30/100;
+ elsif s>3000 and s<=6000 then
+  inc := s*20/100;
+ else
+  inc := s*10/100;
+ end if;
+return inc;
+end;
+main_fun:
+declare
+ eid number := &eid;
+ inc1 number;
+begin
+ inc1 := incr1(eid);
+ dbms_output.put_line('Incremented salary is '||inc1);
+end;
+output:
+Enter value for eid: 7788
+old   2:  eid number := &eid;
+new   2:  eid number := 7788;
+Incremented salary is 900
+3)3.	Write a stored procedure, raise_salary which accepts an employee number. It uses incr function of previous program to get the salary increase amount and uses employee number to select the current salary from employee table. If employee number is not found or if the current salary is null, it should raise an exception. Otherwise, updates the salary.
+declare
+ eid number := &eid;
+ up_sal number;
+ null_val EXCEPTION;
+begin
+ up_sal := incr1(eid);
+ if up_sal = 0 then 
+  RAISE null_val;
+ end if;
+ update emp set sal = (sal+up_sal) where empno = eid;
+exception
+ when no_data_found then
+  dbms_output.put_line('data not found with that eid');
+ when null_val then
+  dbms_output.put_line('null value found');
+end;
+output:
+Enter value for eid: 345
+old   2:  eid number := &eid;
+new   2:  eid number := 345;
+data not found with that eid
+
+Enter value for eid: 7782
+old   2:  eid number := &eid;
+new   2:  eid number := 7782;
+null value found
+4)4.	Consider the following table
+
+ITEM
+prod_ id
+	name
+	mat_used
+	weight
+Write a procedure which will check for the existence of prod_id from the table ITEM. This procedure must have two arguments, one of which will receive a value, which is a matching pattern for prod_id of the ITEM table, and another which will return a value indicating whether a match has been found or not.
+procedure:
+create or replace procedure check_val (pid in number,found out number)
+as
+id number;
+begin
+ select prod_id into id from item where prod_id = pid;
+ if id is not NULL then
+  found := 1;
+ end if;
+exception
+ when no_data_found then
+  dbms_output.put_line('item not available');
+end;
+
+main:
+declare
+ pid number := &pid;
+ found number;
+begin
+ check_val(pid,found);
+ if found = 1 then
+  dbms_output.put_line('item exists!');
+ end if;
+end;
+
+output:
+Enter value for pid: 104
+old   2:  pid number := &pid;
+new   2:  pid number := 104;
+item exists!
+Enter value for pid: 234
+old   2:  pid number := &pid;
+new   2:  pid number := 234;
+item not available
+5)
+/
+create or replace trigger audit_trial
+	after update or delete on persinfo for each row
+declare
+	eno    number;
+	ename  varchar2(12);
+	eage   number;
+	op     varchar2(12);
+begin
+	if updating then op:='update';
+	elsif deleting then op:='delete';
+	end if;
+	eno    :=  :old.empno;
+	ename  :=  :old.name;
+	eage   :=  :old.age;
+	insert into auditpersinfo
+	values(eno,ename,eage,op,sysdate);
+end;
+output:
+delete from persinfo where age=35;
+1 row deleted
+select * from auditpersinfo;
+
+EMPNO ENAME                       AGE OP         ODATE
+----- -------------------- ---------- ---------- ---------
+ 1004 Anuradha                     46 update     08-MAR-22
+ 1004 Anuradha                     46 update     08-MAR-22
+ 1004 Anuradha                     46 update     08-MAR-22
+ 1001 Sasi                         35 delete     10-MAR-22
+ 

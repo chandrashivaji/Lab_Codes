@@ -52,6 +52,13 @@ int main()
     v.push(4);
     v.front();
     v.back();
-    cout<<v[1];
+    cout<<"Elements in the vector:\n";
+    v.display();
+    cout<<"front elemen in vector:\n";
+    v.front();
+    cout<<"last element in vector:\n";
+    v.back();
+    cout<<"Size of the vector is:\n";
+    v.size();
     return 0;
 }
